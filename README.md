@@ -1,2 +1,10 @@
 iot-galileo
 ===========
+
+This is a sample client for the Intel Galileo.
+
+Using the this code and the recipe at https://www.ibmdw.net/iot/recipes/intel-galileo/
+you can run a node.js script to send cpu temperature data to the IBM Internet of Things Cloud Quickstart
+service at http://quickstart.internetofthings.ibmcloud.com
+
+This is a work in progress.

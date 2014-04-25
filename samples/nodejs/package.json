@@ -1,0 +1,14 @@
+{
+  "name": "ibm-iot-quickstart",
+  "version": "0.0.1",
+  "description": "Sample application which sends CPU temp to the IBM IoT Quickstart service",
+  "main": "ibm-iot-quickstart.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mqtt": "^0.3.8",
+    "getmac": "^1.0.6",
+    "properties": "^1.2.1"
+  }
+}
