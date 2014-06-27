@@ -15,11 +15,11 @@
 
 var mqtt = require('mqtt');
 var fs = require('fs');
-var configFile = "./device.cfg";
+var configFile = "./device.sample.cfg";
 
 
 var port = 1883;
-var brokerHost = ".messaging.internetofthings.ibmcloud.com";
+var brokerHost = ".internetofthings.ibmcloud.com";
 var topic;
 var client;
 
@@ -39,20 +39,24 @@ require('getmac').getMac(function(err, macAddress) {
             macAddress = config.id || macAddress;
 
             if(config.token){
-                options.username = deviceType;
+                options.username = organization;
                 options.password = config.token;
             }
         }
 
-        var broker = organization + brokerHost;
-        console.log("MAC Address: " + macAddress);
-        deviceId = macAddress.replace(/:/g, '').toLowerCase();
+        var broker = "messaging." + organization + brokerHost;
+        
+        deviceId = macAddress.toString().replace(/:/g, '').toLowerCase();
         options.clientId = "d:" + organization + ":" + deviceType + ":" + deviceId;
         client = mqtt.createClient(port, broker, options);
         topic = "iot-2/evt/" + deviceType + "/fmt/json"; 
           
-        console.log(options);
+        
+        console.log("Broker: " + broker);
+        console.log("MAC Address: " + macAddress);
         console.log("Topic: " + topic);
+        console.log("Connection options: ")
+        console.log(options);
     });
 });
 
