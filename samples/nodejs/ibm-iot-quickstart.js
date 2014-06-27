@@ -19,7 +19,7 @@ var configFile = "./device.sample.cfg";
 
 
 var port = 1883;
-var brokerHost = ".internetofthings.ibmcloud.com";
+var broker = "messaging.quickstart.internetofthings.ibmcloud.com";
 var topic;
 var client;
 
@@ -38,13 +38,13 @@ require('getmac').getMac(function(err, macAddress) {
             deviceType = config.type || deviceType;
             macAddress = config.id || macAddress;
 
+            broker = organization + ".messaging.internetofthings.ibmcloud.com";
+
             if(config.token){
                 options.username = organization;
                 options.password = config.token;
             }
         }
-
-        var broker = "messaging." + organization + brokerHost;
         
         deviceId = macAddress.toString().replace(/:/g, '').toLowerCase();
         options.clientId = "d:" + organization + ":" + deviceType + ":" + deviceId;
