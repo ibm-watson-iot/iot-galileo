@@ -15,61 +15,54 @@
 
 var mqtt = require('mqtt');
 var fs = require('fs');
-var getmac = require('getmac');
-var properties = require('properties');
 var configFile = "./device.cfg";
 
 
 var port = 1883;
-var broker = "37.58.109.237";
-var org = "quickstart";
-var type = "galileo-quickstart";
-var client;
-var URI;
+var brokerHost = ".messaging.internetofthings.ibmcloud.com";
 var topic;
-var id;
+var client;
 
-properties.parse (configFile, { path: true }, function (err, config){
-    getmac.getMac(function(err, macAddress) {
-        if(err) throw err;
-
-        console.log("MAC Address: " + macAddress);
+require('getmac').getMac(function(err, macAddress) {
+    if (err) throw err;
+    require('properties').parse(configFile, { path: true }, function (err, config){
+        var options = {};
+        var organization = "quickstart";
+        var deviceType = "galileo-quickstart";
 
         if(config){
-            org = config.org || org;
-            type = config.type || type
-            id = config.id;
-        }
-        
-        id = id || macAddress.replace(/:/g, '').toLowerCase();
+            organization = config.org || organization;
+            deviceType = config.type || deviceType;
+            macAddress = config.id || macAddress;
 
-        topic = "iot-2/evt/" + type + "/fmt/json";
-        var deviceId = "d:" + org + ":" + type + ":" + id;
-        
-        if(config && config.token){
-            URI = 'mqtt://galileo-quickstart:' + config.token + "@" + broker + ":" + port + '?clientId=' + deviceId;
-        }
-        
-        else {
-            URI = 'mqtt://' + broker + ":" + port + '?clientId=' + deviceId; 
+            if(config.token){
+                options.username = deviceType;
+                options.password = config.token;
+            }
         }
 
-        console.log("URI: " + URI);
-        client = mqtt.connect(URI);
-
-        setInterval(sendMessage, 1000);
+        var broker = organization + brokerHost;
+        console.log("MAC Address: " + macAddress);
+        deviceId = macAddress.replace(/:/g, '').toLowerCase();
+        options.clientId = "d:" + organization + ":" + deviceType + ":" + deviceId;
+        client = mqtt.createClient(port,broker, options);
+        topic = "iot-2/evt/" + deviceType + "/fmt/json"; 
+          
+        console.log(options);
+        console.log("Topic: " + topic);
     });
 });
 
+setInterval(sendMessage,1000);
 
 function sendMessage() {
     var message = {};
     message.d = {};
     //read the CPU temp from sysfs
-    fs.readFile('/sys/class/thermal/thermal_zone0/temp','utf8', function (err, data) {
+    fs.readFile('/sys/class/thermal/thermal_zone0/temp','utf8',function (err, data) {
         if (err) throw err;
         message.d.cputemp = data/1000;
         console.log(message);
-        client.publish(topic, JSON.stringify(message));
+        client.publish(topic,JSON.stringify(message));
     });
 }
