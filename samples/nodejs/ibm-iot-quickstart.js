@@ -27,9 +27,12 @@ require('getmac').getMac(function(err, macAddress) {
     if (err) throw err;
     require('properties').parse(configFile, { path: true }, function (err, config){
         var options = {};
+        
+        // Set the configuration used when no device.cfg is present
         var organization = "quickstart";
         var deviceType = "galileo-quickstart";
 
+        // If device.cfg was loaded successfully update the configuarion
         if(config){
             organization = config.org || organization;
             deviceType = config.type || deviceType;
@@ -45,7 +48,7 @@ require('getmac').getMac(function(err, macAddress) {
         console.log("MAC Address: " + macAddress);
         deviceId = macAddress.replace(/:/g, '').toLowerCase();
         options.clientId = "d:" + organization + ":" + deviceType + ":" + deviceId;
-        client = mqtt.createClient(port,broker, options);
+        client = mqtt.createClient(port, broker, options);
         topic = "iot-2/evt/" + deviceType + "/fmt/json"; 
           
         console.log(options);
@@ -59,10 +62,10 @@ function sendMessage() {
     var message = {};
     message.d = {};
     //read the CPU temp from sysfs
-    fs.readFile('/sys/class/thermal/thermal_zone0/temp','utf8',function (err, data) {
+    fs.readFile('/sys/class/thermal/thermal_zone0/temp','utf8', function (err, data) {
         if (err) throw err;
         message.d.cputemp = data/1000;
         console.log(message);
-        client.publish(topic,JSON.stringify(message));
+        client.publish(topic, JSON.stringify(message));
     });
 }
