@@ -19,7 +19,7 @@ var configFile = "./device.cfg";
 
 
 var port = 1883;
-var broker = "46.16.188.196";
+var broker = "46.16.189.243";
 var topic;
 var client;
 
@@ -55,7 +55,8 @@ require('getmac').getMac(function(err, macAddress) {
             deviceType = config.type;
             macAddress = config.id;
 
-            broker = organization + ".messaging.internetofthings.ibmcloud.com";
+            //broker = organization + ".messaging.internetofthings.ibmcloud.com";
+            broker = "46.16.189.242";
 
             if(config.token){
                 options.username = organization; // Actual value of options.username can be set to any string
