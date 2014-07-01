@@ -19,7 +19,7 @@ var configFile = "./device.cfg";
 
 
 var port = 1883;
-var broker = "messaging.quickstart.internetofthings.ibmcloud.com";
+var broker = "46.16.188.196";
 var topic;
 var client;
 
@@ -49,6 +49,8 @@ require('getmac').getMac(function(err, macAddress) {
                 throw "Configuration should include an id field that specifies your device id.";
             }
 
+            console.log("Configuration loaded successfully, connecting your device to the registered service.");
+
             organization = config.org;
             deviceType = config.type;
             macAddress = config.id;
@@ -59,6 +61,9 @@ require('getmac').getMac(function(err, macAddress) {
                 options.username = organization; // Actual value of options.username can be set to any string
                 options.password = config.token;
             }
+        }
+        else {
+            console.log("No configuration file found, connecting to the quickstart servcice.");
         }
         
         options.clientId = "d:" + organization + ":" + deviceType + ":" + macAddress;
