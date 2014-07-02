@@ -19,6 +19,7 @@ var configFile = "./device.cfg";
 
 
 var port = 1883;
+//var broker = "quickstart.messaging.internetofthings.ibmcloud.com";
 var broker = "46.16.189.243";
 var topic;
 var client;
@@ -36,6 +37,18 @@ require('getmac').getMac(function(err, macAddress) {
 
         // If device.cfg was loaded successfully update the configuarion
         if(config){
+
+            if(config['auth-method']){
+                if(config['auth-method'] !== "token"){
+                    throw "Authentication method not supported. Please make sure you use \"token\".";
+                }
+                if(config['auth-method'] && !config['auth-token']){
+                    throw "Authentication method set to \"token\" but no \"auth-token\" setting was provided in device.cfg";
+                }
+
+                options.username = "use-token-auth"; // Actual value of options.username can be set to any string
+                options.password = config['auth-token'];
+            }
 
             if(!config.org){
                 throw "Configuration should include an org field that specifies your organization.";
@@ -57,11 +70,6 @@ require('getmac').getMac(function(err, macAddress) {
 
             //broker = organization + ".messaging.internetofthings.ibmcloud.com";
             broker = "46.16.189.242";
-
-            if(config.token){
-                options.username = organization; // Actual value of options.username can be set to any string
-                options.password = config.token;
-            }
         }
         else {
             console.log("No configuration file found, connecting to the quickstart servcice.");
