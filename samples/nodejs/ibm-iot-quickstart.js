@@ -26,7 +26,8 @@ var client;
 
 require('getmac').getMac(function(err, macAddress) {
     if (err) throw err;
-    macAddress.toString().replace(/:/g, '').toLowerCase();
+    
+    macAddress = macAddress.toString().replace(/:/g, '').toLowerCase();
 
     require('properties').parse(configFile, { path: true }, function (err, config){
         var options = {};
