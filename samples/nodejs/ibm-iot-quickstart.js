@@ -19,8 +19,7 @@ var configFile = "./device.cfg";
 
 
 var port = 1883;
-//var broker = "quickstart.messaging.internetofthings.ibmcloud.com";
-var broker = "46.16.189.243";
+var broker = "quickstart.messaging.internetofthings.ibmcloud.com";
 var topic;
 var client;
 
@@ -69,8 +68,7 @@ require('getmac').getMac(function(err, macAddress) {
             deviceType = config.type;
             macAddress = config.id;
 
-            //broker = organization + ".messaging.internetofthings.ibmcloud.com";
-            broker = "46.16.189.242";
+            broker = organization + ".messaging.internetofthings.ibmcloud.com";
         }
         else {
             console.log("No configuration file found, connecting to the quickstart servcice.");
