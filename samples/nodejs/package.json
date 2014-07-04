@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "mqtt": "^0.3.8",
-    "getmac": "^1.0.6"
+    "getmac": "^1.0.6",
+    "properties": "^1.2.1"
   }
 }
