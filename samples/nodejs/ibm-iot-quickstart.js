@@ -81,7 +81,7 @@ require('getmac').getMac(function(err, macAddress) {
         var interval = setInterval(sendMessage,1000);
 
         if(config){
-            client.subscribe('/iot-2/cmd/+/fmt/json');
+            client.subscribe('iot-2/cmd/+/fmt/json');
 
             client.on('message', function(topic, message) {
                 console.log('Received command on topic: ' + topic);
