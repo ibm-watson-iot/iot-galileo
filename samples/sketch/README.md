@@ -35,6 +35,7 @@ Visit the [IBM Internet of Things QuickStart Portal](http://quickstart.interneto
 
 - Register for the [Internet of Things Beta](http://internetofthings.ibmcloud.com/) and select to add a device into an organisation. Alternatively select to add a device from QuickStart.
 - Make a note of the file configuration information that you receive during the device registration process for the following values:
+
 1. Organization ID
 2. Device Type ID
 3. Device ID
