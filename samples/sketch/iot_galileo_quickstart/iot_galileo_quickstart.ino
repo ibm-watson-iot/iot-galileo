@@ -1,18 +1,3 @@
-#include <Arduino.h>
-#include <Countdown.h>
-#include <EthernetStack.h>
-#include <FP.h>
-#include <MQTTClient.h>
-#include <MQTTConnect.h>
-#include <MQTTLogging.h>
-#include <MQTTPacket.h>
-#include <MQTTPublish.h>
-#include <MQTTSubscribe.h>
-#include <MQTTUnsubscribe.h>
-#include <StackTrace.h>
-#include <WiFi.h>
-#include <WifiIPStack.h>
-
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetStack.h>
