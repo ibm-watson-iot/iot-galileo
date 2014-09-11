@@ -35,11 +35,11 @@ Visit the [IBM Internet of Things QuickStart Portal](http://quickstart.interneto
 
 - Register for the [Internet of Things Beta](http://internetofthings.ibmcloud.com/) and select to add a device into an organisation. Alternatively select to add a device from QuickStart.
 - Make a note of the file configuration information that you receive during the device registration process for the following values:
-		1. Organization ID
-		2. Device Type ID
-		3. Device ID
-		4. Authentication Method
-		5. Authentication Token
+		Organization ID
+		Device Type ID
+		Device ID
+		Authentication Method
+		Authentication Token
 
 - In the IDE, select **File >Open**, navigate to the extracted sketch files and select *iot_galileo_registered\iot_galileo_registered.ino*
 - The Intel Galileo board has a sticker on it showing a MAC address. Note down this value and modify the Sketch app code with the MAC address. Update the mac[] field.
@@ -52,8 +52,9 @@ Visit the [IBM Internet of Things QuickStart Portal](http://quickstart.interneto
 
 Intel Galileo Sample running in registered mode supports receipt of commands sent by an application. 
 
-1.Intel Galileo supports Blink
-2.Application should send the  blink in the following format
+- Intel Galileo supports **Blink**
+- Application should send the **blink** in the following format
 		
 		Topic : iot-2/type/<type>/id/<id>/cmd/blink/fmt/json
 		Payload : Any payload
+- When the board receives the command, the led blinks thrice.
