@@ -16,7 +16,7 @@ you can run an Ardiuno Sketch program to send cpu temperature data to the IBM In
 
 ###Setup the Sketch code
 
-- Download the sketch code from [here](https://github.com/jeffdare/iot-galileo/releases/tag/v0.2.0) and extract the contents
+- Download the sketch code from [here](https://github.com/jeffdare/iot-galileo/releases/download/v0.3.0/sketchbook.zip) and extract the contents
 - Follow step 2 in the Intel Galileo Getting Started Guide to launch the Arduino integrated development environment (IDE)
 
 #####Connect(Quickstart)
