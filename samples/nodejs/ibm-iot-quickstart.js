@@ -16,9 +16,11 @@
 var mqtt = require('mqtt');
 var fs = require('fs');
 var configFile = "./device.cfg";
+var caCerts = ["./IoTFoundation.pem", "IoTFoundation-CA.pem"];
 
-
+var qs_mode = true;
 var port = 1883;
+var s_port = 8883;
 var broker = "quickstart.messaging.internetofthings.ibmcloud.com";
 var topic;
 var client;
@@ -69,13 +71,20 @@ require('getmac').getMac(function(err, macAddress) {
             macAddress = config.id;
 
             broker = organization + ".messaging.internetofthings.ibmcloud.com";
+            qs_mode = false;
         }
         else {
             console.log("No configuration file found, connecting to the quickstart servcice.");
         }
         
         options.clientId = "d:" + organization + ":" + deviceType + ":" + macAddress;
-        client = mqtt.createClient(port, broker, options);
+        if (qs_mode) {
+            client = mqtt.createClient(port, broker, options);
+        } else {
+            options.ca = caCerts;
+            options.rejectUnauthorized = true;
+            client = mqtt.createSecureClient(s_port, broker, options);
+        }
         topic = "iot-2/evt/status/fmt/json";
 
         var interval = setInterval(sendMessage,1000);
