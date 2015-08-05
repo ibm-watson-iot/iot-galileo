@@ -1,8 +1,8 @@
 {
-  "name": "ibm-iot-quickstart",
+  "name": "ibm-iot",
   "version": "0.0.1",
   "description": "Sample application which sends CPU temp to the IBM IoT Quickstart service",
-  "main": "ibm-iot-quickstart.js",
+  "main": "ibm-iot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
